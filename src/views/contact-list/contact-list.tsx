@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import { useRouter } from "expo-router";
@@ -30,12 +30,12 @@ export function Contacts() {
 //   const [contacts, setContacts] = useState<ContactItem[]>([]);
 //   const [search, setSearch] = useState("");
 
-//   useEffect(() => {
-//     (async () => {
-//       const data = await getAllContacts();
-//       setContacts(data);
-//     })();
-//   }, []);
+//     useEffect(() => {
+//         (async () => {
+//         const data = await getAllContacts();
+//         setContacts(data);
+//         })();
+//     }, []);
 
   const handleSelectContact = (contact: ContactItem) => {
     router.push({
