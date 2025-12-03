@@ -1,5 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import styles from "./styles";
+import { CreateContactComp } from "@/src/components/create-contact/create-contact";
 import { useRouter } from "expo-router";
 
 export function CreateContact() {
@@ -7,12 +6,6 @@ export function CreateContact() {
     const router = useRouter();
 
     return (
-        <View style={styles.container}>
-
-            <Text> CREATE CONTACT component comes here </Text>
-
-        </View>
-
-   
-    )
+        <CreateContactComp/>
+    );
 }
