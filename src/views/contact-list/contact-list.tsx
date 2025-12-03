@@ -23,19 +23,19 @@ export function Contacts() {
   const router = useRouter();
 
   //Dummy data
-  const [contacts] = useState<ContactItem[]>(DUMMY_CONTACTS);
+  // const [contacts] = useState<ContactItem[]>(DUMMY_CONTACTS);
+  // const [search, setSearch] = useState("");
+
+  // REAL DATA FROM FILE SYSTEM
+  const [contacts, setContacts] = useState<ContactItem[]>([]);
   const [search, setSearch] = useState("");
 
-  //REAL DATA FROM FILE SYSTEM
-//   const [contacts, setContacts] = useState<ContactItem[]>([]);
-//   const [search, setSearch] = useState("");
-
-//     useEffect(() => {
-//         (async () => {
-//         const data = await getAllContacts();
-//         setContacts(data);
-//         })();
-//     }, []);
+    useEffect(() => {
+        (async () => {
+        const data = await getAllContacts();
+        setContacts(data);
+        })();
+    }, []);
 
   const handleSelectContact = (contact: ContactItem) => {
     router.push({

@@ -1,11 +1,12 @@
-import { Animated, Text, TouchableOpacity, View, TextInput } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles";
 import { useRouter } from "expo-router";
+import { ContactPermission } from "../../components/contact-permission/contact-permission";
 
 export function Main() {
-
     const router = useRouter();
+    const [showPermissionModal, setShowPermissionModal] = useState(false);
 
     const logoScale = useRef(new Animated.Value(0.5)).current;
     const logoOpacity = useRef(new Animated.Value(1)).current;
@@ -25,6 +26,11 @@ export function Main() {
                 useNativeDriver: true,
             }),
         ]).start();
+
+        // Show permission modal after animation completes
+        setTimeout(() => {
+            setShowPermissionModal(true);
+        }, 1000);
     }, []);
 
     const handlePress = () => {
@@ -43,6 +49,15 @@ export function Main() {
             toValue: 1,
             useNativeDriver: true,
         }).start();
+    };
+
+    const handleImportComplete = () => {
+        // Contacts have been imported, you can refresh or navigate
+        console.log('Contacts imported successfully');
+    };
+
+    const handleClosePermissionModal = () => {
+        setShowPermissionModal(false);
     };
 
     return (
@@ -73,6 +88,13 @@ export function Main() {
                     <Text style={styles.buttonText}>Continue</Text>
                 </TouchableOpacity>
             </Animated.View>
+
+            {/* Contact Permission Modal */}
+            <ContactPermission
+                visible={showPermissionModal}
+                onClose={handleClosePermissionModal}
+                onImportComplete={handleImportComplete}
+            />
         </View>
     );
 }
