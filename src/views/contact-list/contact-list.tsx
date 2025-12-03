@@ -1,70 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import { useRouter } from "expo-router";
-import { ContactList } from "@/src/components/contact-list/contact-list";
-import type { ContactItem } from "@/src/services/file-service";
-//Read data
-import { getAllContacts } from "@/src/services/file-service";
-
-// DUMMY DATA FOR TESTING
-const DUMMY_CONTACTS_UNSORTED = [
-  { name: "Arnar Máni Steinsen", type: "contact", file: "arnar.json" },
-  { name: "Arngrímur Esra Árnason", type: "contact", file: "arngrimur.json" },
-  { name: "Bryndís Gunnlaugsdóttir", type: "contact", file: "bryndis.json" },
-  { name: "Dagur Smári Sigvaldason", type: "contact", file: "dagur.json" },
-] satisfies ContactItem[];
-
-export const DUMMY_CONTACTS = [...DUMMY_CONTACTS_UNSORTED].sort((a, b) =>
-  a.name.localeCompare(b.name)
-);
 
 export function Contacts() {
-  const router = useRouter();
 
-  //Dummy data
-  const [contacts] = useState<ContactItem[]>(DUMMY_CONTACTS);
-  const [search, setSearch] = useState("");
+    const router = useRouter();
 
-  //REAL DATA FROM FILE SYSTEM
-//   const [contacts, setContacts] = useState<ContactItem[]>([]);
-//   const [search, setSearch] = useState("");
+    return (
+        <View style={styles.container}>
 
-//     useEffect(() => {
-//         (async () => {
-//         const data = await getAllContacts();
-//         setContacts(data);
-//         })();
-//     }, []);
+            <TouchableOpacity
+                style={styles.addButtonContainer}
+                onPress={() => router.push('/create-contact')}
+                >
 
-  const handleSelectContact = (contact: ContactItem) => {
-    router.push({
-      pathname: "/contact-detail",
-      params: { fileName: contact.file },
-    });
-  };
+            <Text style={styles.addButton}>＋</Text>
+            </TouchableOpacity>
+            <Text> CONTACTS PAGE component comes here</Text>
+            
+            <TouchableOpacity
+                onPress={() => router.push('/contact-detail')}
+                style={styles.button}>
 
-  return (
-    <View style={styles.container}>
-      {/* Header row with title + plus button */}
-      <View style={styles.headerRow}>
-        <Text style={styles.title}>My Contacts</Text>
+                <Text>CONTACT DETAIL SCREEN</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.addButtonContainer}
-          onPress={() => router.push("/create-contact")}
-        >
-          <Text style={styles.addButton}>+</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
 
-      {/* Contact list */}
-      <ContactList
-        contacts={contacts}
-        search={search}
-        onSearchChange={setSearch}
-        onSelectContact={handleSelectContact}
-      />
-    </View>
-  );
+
+        
+    )
 }
