@@ -1,7 +1,12 @@
+import { CameraComponent } from "@/src/components/Image/camera";
+import { saveContact, type ContactData } from "@/src/services/file-service";
 import { useRouter } from "expo-router";
-import { Text, TextInput, View } from "react-native";
-import styles from "./styles";
 import React, { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { useImagePicker } from "../Image/imagepicker";
+import { PhotoPreview } from "../Image/photopreview";
+import styles from "./styles";
 
 type CreateContactCopmProps = {};
 
@@ -23,6 +28,28 @@ export function CreateContactComp() {
     const router = useRouter();
     const [phoneDigits, setPhoneDigits] = useState("");
 
+    const [name, setName] = useState("");
+    const [phoneNumber, setDesc] = useState("");
+    const [photo, setPhoto] = useState<{ uri: string } | null>(null);
+
+    const [showCamera, setShowCamera] = useState(false);
+
+    const { pickImage } = useImagePicker((p) => p && setPhoto(p));
+
+
+    
+
+    const handleSave = async () => {
+    const newContact: ContactData = {
+        name,
+        phoneNumber,
+        photo: photo?.uri,   // or photoUri, depending on your type
+    };
+
+    const fileName = await saveContact(newContact);
+    // navigate back or to detail screen
+    };
+    
     const handlePhoneChange = (text: string) => {
         const digits = text.replace(/\D/g, "");
         setPhoneDigits(digits);
@@ -30,7 +57,7 @@ export function CreateContactComp() {
 
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Text style={styles.title}>Create New Contact</Text>
 
             <View style={styles.formBlock}>
@@ -39,6 +66,7 @@ export function CreateContactComp() {
                 placeholder="Enter contact name"
                 placeholderTextColor="#999"
                 style={styles.input}
+                onChangeText={setName}
                 />
             </View>
 
@@ -53,6 +81,47 @@ export function CreateContactComp() {
                 onChangeText={handlePhoneChange}
                 />
             </View>
-        </View>
+
+                  {!showCamera && (
+                <TouchableOpacity style={styles.iconLayout} onPress={() => setShowCamera(true)}>
+                <Text style={styles.cameraIcon}>📷</Text>
+                <Text style={styles.imageButtons}>Add Photo</Text>
+                </TouchableOpacity>
+            )}
+
+            <TouchableOpacity style={styles.iconLayout} onPress={pickImage}>
+                <Text style={styles.photoLibrary}>🖼️</Text>
+                <Text style={styles.imageButtons}>Choose from Library</Text>
+            </TouchableOpacity>
+
+            {showCamera && (
+                <CameraComponent
+                onPictureTaken={(p) => {
+                    setPhoto(p);
+                    setShowCamera(false);
+                }}
+                onClose={() => setShowCamera(false)}
+                />
+            )}
+
+            {photo && <PhotoPreview uri={photo.uri} />}
+
+            {/* BUTTONS */}
+            <View style={styles.buttonsRow}>
+                <TouchableOpacity
+                style={[styles.button, styles.buttonLight]}
+                onPress={() => router.back()}
+                >
+                <Text style={styles.buttonTextDark}>Cancel</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                style={[styles.button, styles.buttonGrey]}
+                onPress={ handleSave }
+                >
+                <Text style={styles.buttonTextDark}>Create</Text>
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
     );
 }

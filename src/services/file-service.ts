@@ -7,7 +7,7 @@ const contactDirectory = new Directory(Paths.document, "contacts");
 export interface ContactData {
   name: string;
   phoneNumber: string;
-  photo?: string; // uri string to the image
+  photo?: string;
 }
 
 export interface ContactItem {

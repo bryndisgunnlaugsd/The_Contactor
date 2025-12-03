@@ -27,6 +27,10 @@ export default StyleSheet.create({
     marginBottom: 8,
   },
 
+  imageButtons: {
+    color: "black",
+  },
+
   input: {
     height: 52,
     borderRadius: 18,
@@ -94,5 +98,22 @@ export default StyleSheet.create({
   listPickerItemTextActive: {
     fontWeight: "700",
   },
+
+  iconLayout: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  cameraIcon: {
+    fontSize: 24,
+    marginVertical: 10,
+    marginRight:15,
+  },
+  photoLibrary: {
+    fontSize: 24,
+    marginVertical: 10,
+    marginRight:15,
+  },
+
 
 });

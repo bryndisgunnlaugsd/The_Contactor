@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { TouchableOpacity, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as Linking from "expo-linking";
-import styles from "./styles";
+import { useState } from "react";
 
 interface PhotoResult {
   uri: string;
@@ -25,10 +22,20 @@ export function useImagePicker(onPicked: (photo: PhotoResult | null) => void) {
   };
 
   const pickImage = async () => {
+    // Check existing permission
     let perm = permission ?? (await ImagePicker.getMediaLibraryPermissionsAsync());
     setPermission(perm);
 
-    if (!perm.granted) return false;
+    // If permission is NOT granted → REQUEST IT
+    if (!perm.granted) {
+      perm = await requestPermission();
+    }
+
+    // If still not granted → stop
+    if (!perm.granted) {
+      alert("Permission required to access photos.");
+      return false;
+    }
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -50,4 +57,3 @@ export function useImagePicker(onPicked: (photo: PhotoResult | null) => void) {
 
   return { permission, requestPermission, pickImage };
 }
-
