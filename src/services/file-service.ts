@@ -1,97 +1,132 @@
 import { Directory, File, Paths } from "expo-file-system";
+import { v4 as uuidv4 } from "uuid";
 
 const contactDirectory = new Directory(Paths.document, "contacts");
 
-export interface ContactItem {
-    name: string;
-    type: "contact";
-    file: string;
+// Data stored inside each JSON file
+export interface ContactData {
+  name: string;
+  phoneNumber: string;
+  photo?: string; // uri string to the image
 }
 
-//Error handler
+export interface ContactItem {
+  // what you need to show in the contact list
+  name: string;
+  type: "contact";
+  file: string; // the actual filename: "<name>-<uuid>.json"
+}
+
+// Error handler
 type ErrorHandler = (error: Error) => void;
 
+// Generic wrapper for try/catch
 const onException = async <T>(
-    cb: () => T | Promise<T>,
-    errorHandler?: ErrorHandler
-): Promise <T | null> => {
-    try {
-        return await cb();
-    } catch (err) {
-        const error = err instanceof Error ? err : new Error(String(err))
-
-        if (errorHandler) {
-            errorHandler(error);
-        } else {
-            console.error("File service error", error.message);
-        }
-
-        return null;
+  cb: () => T | Promise<T>,
+  errorHandler?: ErrorHandler
+): Promise<T> => {
+  try {
+    return await cb();
+  } catch (err) {
+    const error = err as Error;
+    if (errorHandler) {
+      errorHandler(error);
+    } else {
+      console.error("File service error:", error);
     }
+    throw error;
+  }
 };
 
-const setupDirectory = async (): Promise<void> => {
-    await onException(() => {
-        if (!contactDirectory.exists){
-            contactDirectory.create();
-        }
-    });
+// Ensure the contacts folder exists in documentDirectory
+const ensureContactDirectoryExists = async () => {
+  if (!contactDirectory.exists) {
+    contactDirectory.create(); // sync in the new API
+  }
 };
 
-const loadContact = async (fileName: string): Promise<string> => {
-    const result = await onException(() => {
-        const file = new File(contactDirectory.uri, fileName);
-        return file.base64();
-    });
+// ---- CREATE / SAVE CONTACT ----
+export const saveContact = async (
+  data: ContactData,
+  errorHandler?: ErrorHandler
+): Promise<string> => {
+  return onException(async () => {
+    await ensureContactDirectoryExists();
 
-    if (result === null) {
-        console.warn("Failed to load contact");
-        return "";
-    }
+    const id = uuidv4(); // unique id part
+    const fileName = `${data.name}-${id}.json`;
 
-    return result;
+    const file = new File(contactDirectory, fileName);
+    file.create();
+    file.write(JSON.stringify(data));
+
+    return fileName; // return the filename so you can store it or navigate with it
+  }, errorHandler);
 };
 
-export const addContact = async (contactLocation: string): Promise<ContactItem> => {
-    await setupDirectory();
-
-    const folderSplit = contactLocation.split("/");
-    const fileName = folderSplit[folderSplit.length - 1]
-
-    const sourceFile = new File(contactLocation)
-    const destinationFile = new File(contactDirectory.uri, fileName);
-
-    await onException(() => {
-        sourceFile.copy(destinationFile);
-    });
-
-    const fileContent = await loadContact(fileName);
-
-    return {
-        name: fileName,
-        type: "contact",
-        file: fileContent,
-    };
+// ---- LOAD CONTACT (DETAIL SCREEN) ----
+export const loadContact = async (
+  fileName: string,
+  errorHandler?: ErrorHandler
+): Promise<ContactData> => {
+  return onException(async () => {
+    const file = new File(contactDirectory, fileName);
+    const content = await file.text();
+    return JSON.parse(content) as ContactData;
+  }, errorHandler);
 };
 
-export const getAllContacts = async (): Promise<ContactItem[]> => {
-    await setupDirectory();
+// ---- LIST ALL CONTACTS (FOR CONTACTS SCREEN) ----
+export const getAllContacts = async (
+  errorHandler?: ErrorHandler
+): Promise<ContactItem[]> => {
+  return onException(async () => {
+    await ensureContactDirectoryExists();
 
-    const items = await onException(() => contactDirectory.list());
-    if (!items || items.length === 0) {
-        return [];
-    }
+    // Directory.list() is sync in the new API
+    const items = contactDirectory.list();
 
-    const contactFiles = items.filter((item) => item instanceof File).map((item) => (item as File).name);
-    
-    return Promise.all(
-        contactFiles.map(async (fileName: string): Promise<ContactItem> => {
-        const fileContent = await loadContact(fileName);
+    const contactFiles = items.filter(
+      (item) => item instanceof File
+    ) as File[];
+
+    // load each file, but only expose list fields (name + filename)
+    const contacts = await Promise.all(
+      contactFiles.map(async (file): Promise<ContactItem> => {
+        const data = await loadContact(file.name, errorHandler);
         return {
-            name: fileName,
-            type: "contact",
-            file: fileContent,
+          name: data.name,
+          type: "contact",
+          file: file.name,
         };
-        })
+      })
     );
+
+    // sort alphabetically by name (ascending)
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+
+    return contacts;
+  }, errorHandler);
+};
+
+// ---- UPDATE CONTACT (EDIT SCREEN) ----
+// The assignment says the JSON file should be recreated after modifying the contact. :contentReference[oaicite:1]{index=1}
+export const updateContact = async (
+  oldFileName: string,
+  updated: ContactData,
+  errorHandler?: ErrorHandler
+): Promise<string> => {
+  return onException(async () => {
+    await ensureContactDirectoryExists();
+
+    // delete old file if it exists
+    const oldFile = new File(contactDirectory, oldFileName);
+    if (oldFile.exists) {
+      oldFile.delete();
+    }
+
+    // create a new file with possibly new name + new uuid
+    const newFileName = await saveContact(updated, errorHandler);
+    return newFileName;
+  }, errorHandler);
 };
