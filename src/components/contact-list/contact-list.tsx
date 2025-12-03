@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, FlatList, ListRenderItem } from "react-native";
+import { View, TextInput, FlatList, ListRenderItem, Text } from "react-native";
 import type { ContactItem } from "@/src/services/file-service";
 import { ContactListItem } from "@/src/components/contact-list-item/contact-list-item";
 import styles from "./styles";
@@ -17,24 +17,45 @@ export const ContactList: React.FC<Props> = ({
   onSearchChange,
   onSelectContact,
 }) => {
-  const renderItem: ListRenderItem<ContactItem> = ({ item }) => (
-    <ContactListItem contact={item} onPress={() => onSelectContact(item)} />
+  // filter by search text
+  const filtered = contacts.filter((c) =>
+    c.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  const renderItem: ListRenderItem<ContactItem> = ({ item, index }) => {
+    const currentInitial = item.name.charAt(0).toUpperCase();
+    const prev = filtered[index - 1];
+    const prevInitial = prev?.name?.charAt(0).toUpperCase();
+    const showInitial = index === 0 || currentInitial !== prevInitial;
+
+    return (
+      <View>
+        {showInitial && (
+          <Text style={styles.sectionHeader}>{currentInitial}</Text>
+        )}
+        <ContactListItem
+          contact={item}
+          onPress={() => onSelectContact(item)}
+        />
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="Search"
+        placeholder="Search contacts..."
         style={styles.searchInput}
         value={search}
         onChangeText={onSearchChange}
       />
 
       <FlatList
-        data={contacts}
+        data={filtered}
         keyExtractor={(item) => item.file}
         renderItem={renderItem}
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
