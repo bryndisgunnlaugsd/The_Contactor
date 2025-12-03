@@ -2,32 +2,41 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     container: {
-        //Tekið úr Toodler
         flex: 1,
         padding: 40,
         backgroundColor: "white",
         alignItems: "center",
-        justifyContent: "space-evenly"
+        justifyContent: "center",
     },
+
+    image: {
+        width: 500,
+        height: 450,
+    },
+
     button: {
-        //Tekið úr Toodler
-        marginTop: 30,
-        paddingTop: 14,
-        paddingBottom: 14,
-        paddingLeft: 32,
-        paddingRight: 32,
-        backgroundColor: "white",
+        marginBottom: 200,
+        marginTop: -80,
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingLeft: 40,
+        paddingRight: 40,
+        backgroundColor: "#1EA165",
         borderRadius: 25,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 4,
         },
-        shadowOpacity: 0.2,
+        shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 8,
+    },
+
+    buttonText: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "bold",
+        textAlign: "center",
     }
-
-}
-)
-
+});
