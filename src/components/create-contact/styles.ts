@@ -13,17 +13,12 @@ export default StyleSheet.create({
     fontSize: 28,
     fontWeight: "700",
     textAlign: "center",
-    marginBottom: 32,
+    marginBottom: 20,
     color: black,
   },
 
   formBlock: {
     marginBottom: 24,
-    shadowColor: shadow,
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
-    elevation: 3,
   },
 
   label: {
@@ -35,6 +30,8 @@ export default StyleSheet.create({
 
   imageButtons: {
     color: "black",
+    fontSize: 15,
+    fontWeight: "500",
   },
 
   input: {
@@ -45,6 +42,11 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E5E7EB",
     fontSize: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 2,
   },
 
   buttonsRow: {
@@ -62,7 +64,6 @@ export default StyleSheet.create({
     borderRadius: 18,
     justifyContent: "center",
     alignItems: "center",
-
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowOffset: { width: 0, height: 3 },
@@ -93,29 +94,6 @@ export default StyleSheet.create({
     color: "#111111",
   },
 
-  listPicker: {
-    marginTop: 8,
-    backgroundColor: "#FFF",
-    borderRadius: 12,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    shadowColor: "#000",
-    shadowOpacity: 0.12,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    elevation: 2,
-  },
-  listPickerItem: {
-    paddingVertical: 6,
-  },
-  listPickerItemText: {
-    fontSize: 14,
-    color: "#111",
-  },
-  listPickerItemTextActive: {
-    fontWeight: "700",
-  },
-
   iconLayout: {
     flexDirection: "row",
     alignItems: "center",
@@ -127,58 +105,77 @@ export default StyleSheet.create({
     backgroundColor: white,
     borderWidth: 1,
     borderColor: "#E5E7EB",
-    fontSize: 16,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.08,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     elevation: 2,
-    
   },
   cameraIcon: {
-    fontSize: 24,
-    marginVertical: 10,
-    marginRight: 12,
+    marginRight: 10,
+    color: "#666",
   },
   photoLibrary: {
-    fontSize: 24,
-    marginVertical: 10,
-    marginRight:12,
+    marginRight: 10,
+    color: "#666",
   },
 
   avatarImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    marginBottom: 20,
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    marginBottom: 8,
   },
   avatarFallback: {
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: "#f7d9dd",
+    backgroundColor: "#AFE9CF", // Default
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 20,
+    marginBottom: 8,
   },
   avatarText: {
-      fontSize: 52,
-      fontWeight: "700",
+    fontSize: 52,
+    fontWeight: "700",
+    color: black,
+  },
+
+  deleteButtonCenter: {
+    borderRadius: 25,
+    backgroundColor: "#de4035",
+    height: 40,
+    paddingHorizontal: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    marginBottom: 24,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
 
   deleteButton: {
-    borderRadius: 70,
+    borderRadius: 25,
     backgroundColor: "#de4035",
-    height: 35,
-    width: 80,
+    height: 40,
+    width: 100,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end",
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
 
   deleteButtonText: {
     color: "white",
-    fontSize:14,
+    fontSize: 15,
     fontWeight: "600",
   }
 });

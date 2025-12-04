@@ -20,7 +20,6 @@ function formatPhone(digits: string): string {
     return `${onlyDigits.slice(0, 3)} ${onlyDigits.slice(3)}`;
   }
 
-  // you can improve this later for longer numbers
   return onlyDigits;
 }
 

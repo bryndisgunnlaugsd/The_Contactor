@@ -12,11 +12,11 @@ interface Props {
 
 // Green scale for avatars
 const AVATAR_COLORS: { [key: string]: string } = {
-  'A': green5, 'F': green5, 'K': green5, 'P': green5, 'U': green5, 'Z': green5,
-  'B': green4, 'G': green4, 'L': green4, 'Q': green4, 'V': green4,
-  'C': green3, 'H': green3, 'M': green3, 'R': green3, 'W': green3,
-  'D': green2, 'I': green2, 'N': green2, 'S': green2, 'X': green2,
-  'E': green1, 'J': green1, 'O': green1, 'T': green1, 'Y': green1,
+  "A": green5, "F": green5, "K": green5, "P": green5, "U": green5, "Z": green5,
+  "B": green4, "G": green4, "L": green4, "Q": green4, "V": green4,
+  "C": green3, "H": green3, "M": green3, "R": green3, "W": green3,
+  "D": green2, "I": green2, "N": green2, "S": green2, "X": green2,
+  "E": green1, "J": green1, "O": green1, "T": green1, "Y": green1,
 };
 
 export const ContactListItem: React.FC<Props> = ({ contact, onPress }) => {

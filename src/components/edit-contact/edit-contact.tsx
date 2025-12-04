@@ -4,12 +4,23 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Alert, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
+import { green1, green2, green3, green4, green5 } from "@/src/styles/colors";
 import styles from "../create-contact/styles";
 import { useImagePicker } from "../Image/imagepicker";
 
 interface Props {
     fileName: string | null;
 }
+
+// Green scale for avatars
+const AVATAR_COLORS: { [key: string]: string } = {
+  "A": green5, "F": green5, "K": green5, "P": green5, "U": green5, "Z": green5,
+  "B": green4, "G": green4, "L": green4, "Q": green4, "V": green4,
+  "C": green3, "H": green3, "M": green3, "R": green3, "W": green3,
+  "D": green2, "I": green2, "N": green2, "S": green2, "X": green2,
+  "E": green1, "J": green1, "O": green1, "T": green1, "Y": green1,
+};
 
 function formatPhone(digits: string): string {
   const onlyDigits = digits.replace(/\D/g, "");
@@ -60,8 +71,8 @@ export function EditContactComp({ fileName }: Props) {
 
     if (loading) {
         return (
-        <View>
-            <Text>Loading contact...</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Loading contact...</Text>
         </View>
         );
     }
@@ -108,31 +119,49 @@ export function EditContactComp({ fileName }: Props) {
     };
 
     const handleDelete = async () => {
-        await deleteContact(String(fileName))
-        Alert.alert("Success", "Contact deleted!")
-        router.push("/contact-list");
+        Alert.alert(
+            "Delete Contact",
+            "Are you sure you want to delete this contact?",
+            [
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: async () => {
+                        await deleteContact(String(fileName));
+                        Alert.alert("Success", "Contact deleted!");
+                        router.push("/contact-list");
+                    }
+                }
+            ]
+        );
     };
+
+    const initial = name.charAt(0).toUpperCase();
+    const avatarColor = AVATAR_COLORS[initial] || green4;
 
     return(
         <ScrollView style={styles.container}>
 
-        <TouchableOpacity style= {styles.deleteButton} onPress= { handleDelete }>
-            <Text style= {styles.deleteButtonText}> Delete</Text>
-        </TouchableOpacity>
-
-
-        <View style={{ alignItems: "center", marginTop: 20 }}>
+        {/* Avatar Section - Centered */}
+        <View style={{ alignItems: "center", marginTop: -18, marginBottom: 20 }}>
         {photo?.uri ? (
             <Image source={{ uri: photo.uri }} style={styles.avatarImage} />
         ) : (
-            <View style={styles.avatarFallback}>
+            <View style={[styles.avatarFallback, { backgroundColor: avatarColor }]}>
             <Text style={styles.avatarText}>
-                {name ? name.charAt(0).toUpperCase() : "?"}
+                {initial || "?"}
             </Text>
             </View>
         )}
         </View>
+
         <Text style={styles.title}>Edit Contact</Text>
+
+        {/* Delete Button Below Title */}
+        <TouchableOpacity style={styles.deleteButtonCenter} onPress={handleDelete}>
+            <Text style={styles.deleteButtonText}>Delete</Text>
+        </TouchableOpacity>
 
         <View style={styles.formBlock}>
             <Text style={styles.label}>Contact Name</Text>
@@ -181,7 +210,6 @@ export function EditContactComp({ fileName }: Props) {
             onClose={() => setShowCamera(false)}
             />
         )}
-
 
         <View style={styles.buttonsRow}>
             <TouchableOpacity
