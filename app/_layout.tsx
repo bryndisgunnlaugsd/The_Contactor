@@ -14,7 +14,13 @@ export default function RootLayout() {
       headerTitleStyle: {
         fontWeight: "bold",
         fontSize: 20,
-      }
+      },
+      headerTitle: () => (
+          <Image
+            source={require("@/assets/images/contactor.png")}
+            style={{width: 184, height: 40}}
+          />
+        ),
       
     }}>
     <Stack.Screen 
@@ -29,12 +35,6 @@ export default function RootLayout() {
       options={{
         title: "",
         headerBackVisible: false,
-        headerTitle: () => (
-          <Image
-            source={require("@/assets/images/contactor.png")}
-            style={{width: 184, height: 40}}
-          />
-        ),
         headerTitleAlign: "center",
       }}/>
 
