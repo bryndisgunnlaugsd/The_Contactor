@@ -47,6 +47,7 @@ export default StyleSheet.create({
     alignItems: "center",
     gap: 16,
     marginTop: 28,
+    marginBottom: 28,
   },
 
   button: {
@@ -103,6 +104,14 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
+    height: 52,
+    borderRadius: 18,
+    paddingHorizontal: 16,
+    backgroundColor: "#F3F4F6",
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    fontSize: 16,
+    
   },
   cameraIcon: {
     fontSize: 24,

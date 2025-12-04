@@ -8,7 +8,6 @@ import { useImagePicker } from "../Image/imagepicker";
 import { PhotoPreview } from "../Image/photopreview";
 import styles from "./styles";
 
-type CreateContactCopmProps = {};
 
 function formatPhone(digits: string): string {
     const onlyDigits = digits.replace(/\D/g, "");
@@ -46,13 +45,14 @@ export function CreateContactComp() {
         photo: photo?.uri,   // or photoUri, depending on your type
     };
 
-    const fileName = await saveContact(newContact);
-    // navigate back or to detail screen
+    await saveContact(newContact);
+    router.back();
     };
     
     const handlePhoneChange = (text: string) => {
         const digits = text.replace(/\D/g, "");
         setPhoneDigits(digits);
+        setDesc(digits);
     }
 
 
@@ -85,13 +85,13 @@ export function CreateContactComp() {
                   {!showCamera && (
                 <TouchableOpacity style={styles.iconLayout} onPress={() => setShowCamera(true)}>
                 <Text style={styles.cameraIcon}>📷</Text>
-                <Text style={styles.imageButtons}>Add Photo</Text>
+                <Text style={styles.imageButtons}>Take Photo</Text>
                 </TouchableOpacity>
             )}
 
             <TouchableOpacity style={styles.iconLayout} onPress={pickImage}>
                 <Text style={styles.photoLibrary}>🖼️</Text>
-                <Text style={styles.imageButtons}>Choose from Library</Text>
+                <Text style={styles.imageButtons}>Upload Photo</Text>
             </TouchableOpacity>
 
             {showCamera && (
