@@ -1,3 +1,3 @@
-import { EditContactView } from '@/src/views/edit-contact/edit-contact';
+import { EditContactView } from "@/src/views/edit-contact/edit-contact";
 
 export default EditContactView;

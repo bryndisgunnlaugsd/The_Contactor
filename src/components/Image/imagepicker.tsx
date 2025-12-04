@@ -18,6 +18,7 @@ export function useImagePicker(onPicked: (photo: PhotoResult | null) => void) {
   const requestPermission = async () => {
     const res = await ImagePicker.requestMediaLibraryPermissionsAsync();
     setPermission(res);
+
     return res;
   };
 
@@ -34,6 +35,7 @@ export function useImagePicker(onPicked: (photo: PhotoResult | null) => void) {
     // If still not granted → stop
     if (!perm.granted) {
       alert("Permission required to access photos.");
+      
       return false;
     }
 
