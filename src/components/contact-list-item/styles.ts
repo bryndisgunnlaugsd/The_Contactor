@@ -1,16 +1,16 @@
 import { StyleSheet } from "react-native";
+import { white, black, mainGreen, shadow} from "@/src/styles/colors";
 
 export default StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#ffffff",
+    backgroundColor: white,
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,
     marginBottom: 16,
-    // soft card shadow
-    shadowColor: "#000",
+    shadowColor: shadow,
     shadowOpacity: 0.12,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 8,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: "#d3d3d3",
+    backgroundColor: mainGreen, // default
     alignItems: "center",
     justifyContent: "center",   // center initial
   },
@@ -28,7 +28,7 @@ export default StyleSheet.create({
   avatarInitial: {
     fontSize: 22,
     fontWeight: "600",
-    color: "#000",
+    color: shadow,
   },
 
   textContainer: {
