@@ -1,32 +1,40 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-    container: {
-        //Tekið úr Toodler
-        flex: 1,
-        padding: 40,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "space-evenly"
-    },
-    button: {
-        //Tekið úr Toodler
-        marginTop: 30,
-        paddingTop: 14,
-        paddingBottom: 14,
-        paddingLeft: 32,
-        paddingRight: 32,
-        backgroundColor: "white",
-        borderRadius: 25,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 8,
-    }
-
-}
-)
+  container: {
+    flex: 1,
+    backgroundColor: "#f3f3f3",
+    paddingHorizontal: 24,
+    paddingTop: 60,
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f3f3f3",
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 24,
+    justifyContent: "space-between",
+  },
+  backText: {
+    fontSize: 22,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "700",
+  },
+  backButton: {
+    marginTop: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 20,
+    backgroundColor: "#ffffff",
+  },
+  backButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+});

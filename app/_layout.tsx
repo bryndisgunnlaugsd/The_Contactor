@@ -1,5 +1,6 @@
 import "react-native-get-random-values";
 import { Stack } from "expo-router";
+import { Image } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
@@ -26,8 +27,15 @@ export default function RootLayout() {
     <Stack.Screen 
       name="contact-list"
       options={{
-        headerShown: true,
-        title: "Contacts",
+        title: "",
+        headerBackVisible: false,
+        headerTitle: () => (
+          <Image
+            source={require("@/assets/images/contactor.png")}
+            style={{width: 184, height: 40}}
+          />
+        ),
+        headerTitleAlign: "center",
       }}/>
 
     <Stack.Screen 

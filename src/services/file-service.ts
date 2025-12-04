@@ -45,6 +45,38 @@ const ensureContactDirectoryExists = async () => {
   }
 };
 
+// ---- CHECK IF CONTACT EXISTS (by phone number) ----
+export const contactExists = async (
+  phoneNumber: string,
+  errorHandler?: ErrorHandler
+): Promise<boolean> => {
+  return onException(async () => {
+    await ensureContactDirectoryExists();
+
+    const items = contactDirectory.list();
+    const contactFiles = items.filter(
+      (item) => item instanceof File
+    ) as File[];
+
+    // Check if any existing contact has the same phone number
+    for (const file of contactFiles) {
+      const content = await file.text();
+      const data = JSON.parse(content) as ContactData;
+      
+      // Normalize phone numbers for comparison (remove spaces, dashes, etc)
+      const normalizedExisting = data.phoneNumber.replace(/[\s\-\(\)]/g, '');
+      const normalizedNew = phoneNumber.replace(/[\s\-\(\)]/g, '');
+      
+      if (normalizedExisting === normalizedNew) {
+        return true;
+      }
+    }
+
+    return false;
+  }, errorHandler);
+};
+
+
 // ---- CREATE / SAVE CONTACT ----
 export const saveContact = async (
   data: ContactData,
@@ -130,3 +162,11 @@ export const updateContact = async (
     return newFileName;
   }, errorHandler);
 };
+
+// --- Delete contact ---
+
+export const deleteContact = async (fileName: string) =>
+  onException(async () => {
+    const file = new File(contactDirectory, fileName);
+    if (file.exists) file.delete();
+  });
