@@ -151,11 +151,12 @@ export default StyleSheet.create({
     width: 80,
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "flex-end",
   },
 
   deleteButtonText: {
     color: "white",
-    fontSize:12,
+    fontSize:14,
     fontWeight: "600",
   }
 
