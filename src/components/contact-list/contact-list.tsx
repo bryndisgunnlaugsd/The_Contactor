@@ -45,6 +45,7 @@ export const ContactList: React.FC<Props> = ({
     <View style={styles.container}>
       <TextInput
         placeholder="Search contacts..."
+        placeholderTextColor="#666666"
         style={styles.searchInput}
         value={search}
         onChangeText={onSearchChange}

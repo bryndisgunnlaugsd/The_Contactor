@@ -52,7 +52,6 @@ export function Main() {
     };
 
     const handleImportComplete = () => {
-        // Contacts have been imported, you can refresh or navigate
         console.log('Contacts imported successfully');
     };
 

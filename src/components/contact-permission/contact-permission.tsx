@@ -69,7 +69,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
                 await saveContact(contactData);
                 importedCount++;
               } catch (error) {
-                console.error(`Failed to save contact ${name}:`, error);
+                console.error("Failed to save contact ${name}:", error);
               }
             } else {
               skippedCount++;
@@ -80,7 +80,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
         // Show appropriate message
         if (importedCount > 0) {
           Alert.alert(
-            'Import Complete',
+            "Import Complete",
             `Successfully imported ${importedCount} new contact${importedCount !== 1 ? 's' : ''}${
               skippedCount > 0 ? `\n${skippedCount} duplicate${skippedCount !== 1 ? 's' : ''} skipped` : ''
             }`,
