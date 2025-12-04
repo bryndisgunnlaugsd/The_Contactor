@@ -125,9 +125,9 @@ export default StyleSheet.create({
   },
 
   avatarImage: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
     marginBottom: 20,
   },
   avatarFallback: {
