@@ -20,7 +20,7 @@ export default StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: "#f7d9dd", // light pastel circle
+    backgroundColor: "#d3d3d3",
   },
   textContainer: {
     marginLeft: 16,
