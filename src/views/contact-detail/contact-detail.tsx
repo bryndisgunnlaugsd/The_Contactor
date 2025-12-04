@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View, TouchableOpacity } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import styles from "./styles";
 import { ContactDetail } from "@/src/components/contact-detail/contact-detail";
 import { loadContact, type ContactData } from "@/src/services/file-service";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import styles from "./styles";
 
 export function ContactDetailView() {
   const router = useRouter();
@@ -65,7 +65,8 @@ export function ContactDetailView() {
       </View>
 
       {/* Body */}
-      <ContactDetail contact={contact} />
+      <ContactDetail contact={contact}
+      onEdit={() => router.push("/edit-contact?fileName=${fileName}")} />
     </View>
   );
 }

@@ -52,6 +52,13 @@ export default function RootLayout() {
         title: "Create Contact",
       }}/>
 
+      <Stack.Screen 
+      name="edit-contact"
+      options={{
+        headerShown: true,
+        title: "Edit Contact",
+      }}/>
+
 
   </Stack>
   </GestureHandlerRootView>
