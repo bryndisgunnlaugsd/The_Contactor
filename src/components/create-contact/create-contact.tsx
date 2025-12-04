@@ -2,7 +2,7 @@ import { CameraComponent } from "@/src/components/Image/camera";
 import { saveContact, type ContactData } from "@/src/services/file-service";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useImagePicker } from "../Image/imagepicker";
 import { PhotoPreview } from "../Image/photopreview";
@@ -11,117 +11,135 @@ import styles from "./styles";
 type CreateContactCopmProps = {};
 
 function formatPhone(digits: string): string {
-    const onlyDigits = digits.replace(/\D/g, "");
+  const onlyDigits = digits.replace(/\D/g, "");
 
-    if (onlyDigits.length <= 3) {
-        return onlyDigits;
-    }
-
-    if (onlyDigits.length <= 7) {
-        return `${onlyDigits.slice(0, 3)} ${onlyDigits.slice(3)}`;
-    }
-
+  if (onlyDigits.length <= 3) {
     return onlyDigits;
+  }
+
+  if (onlyDigits.length <= 7) {
+    return `${onlyDigits.slice(0, 3)} ${onlyDigits.slice(3)}`;
+  }
+
+  // you can improve this later for longer numbers
+  return onlyDigits;
 }
 
 export function CreateContactComp() {
-    const router = useRouter();
-    const [phoneDigits, setPhoneDigits] = useState("");
+  const router = useRouter();
 
-    const [name, setName] = useState("");
-    const [phoneNumber, setDesc] = useState("");
-    const [photo, setPhoto] = useState<{ uri: string } | null>(null);
+  const [name, setName] = useState("");
+  const [phoneDigits, setPhoneDigits] = useState("");
+  const [photo, setPhoto] = useState<{ uri: string } | null>(null);
 
-    const [showCamera, setShowCamera] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
 
-    const { pickImage } = useImagePicker((p) => p && setPhoto(p));
+  const { pickImage } = useImagePicker((p) => p && setPhoto(p));
 
+  const handlePhoneChange = (text: string) => {
+    const digits = text.replace(/\D/g, "");
+    setPhoneDigits(digits);
+  };
 
-    
+  const handleSave = async () => {
+    const trimmedName = name.trim();
 
-    const handleSave = async () => {
-    const newContact: ContactData = {
-        name,
-        phoneNumber,
-        photo: photo?.uri,   // or photoUri, depending on your type
-    };
-
-    const fileName = await saveContact(newContact);
-    // navigate back or to detail screen
-    };
-    
-    const handlePhoneChange = (text: string) => {
-        const digits = text.replace(/\D/g, "");
-        setPhoneDigits(digits);
+    if (!trimmedName) {
+      Alert.alert("Missing name", "Please enter a contact name.");
+      return;
     }
 
+    if (!phoneDigits) {
+      Alert.alert("Missing phone number", "Please enter a phone number.");
+      return;
+    }
 
-    return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.title}>Create New Contact</Text>
+    const newContact: ContactData = {
+      name: trimmedName,
+      // store the formatted version (or use phoneDigits if you prefer raw)
+      phoneNumber: formatPhone(phoneDigits),
+      photo: photo?.uri,
+    };
 
-            <View style={styles.formBlock}>
-                <Text style={styles.label}>Contact Name</Text>
-                <TextInput
-                placeholder="Enter contact name"
-                placeholderTextColor="#999"
-                style={styles.input}
-                onChangeText={setName}
-                />
-            </View>
+    try {
+      const fileName = await saveContact(newContact);
 
-            <View style={styles.formBlock}>
-                <Text style={styles.label}>Contact Phone Number</Text>
-                <TextInput
-                placeholder="Enter phone number"
-                placeholderTextColor="#999"
-                style={styles.input}
-                keyboardType="number-pad"
-                value={formatPhone(phoneDigits)}
-                onChangeText={handlePhoneChange}
-                />
-            </View>
+      router.push("/contact-list");
+    } catch (e) {
+      console.error("Failed to save contact:", e);
+      Alert.alert("Error", "Could not save contact. Please try again.");
+    }
+  };
 
-                  {!showCamera && (
-                <TouchableOpacity style={styles.iconLayout} onPress={() => setShowCamera(true)}>
-                <Text style={styles.cameraIcon}>📷</Text>
-                <Text style={styles.imageButtons}>Add Photo</Text>
-                </TouchableOpacity>
-            )}
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>Create New Contact</Text>
 
-            <TouchableOpacity style={styles.iconLayout} onPress={pickImage}>
-                <Text style={styles.photoLibrary}>🖼️</Text>
-                <Text style={styles.imageButtons}>Choose from Library</Text>
-            </TouchableOpacity>
+      <View style={styles.formBlock}>
+        <Text style={styles.label}>Contact Name</Text>
+        <TextInput
+          placeholder="Enter contact name"
+          placeholderTextColor="#999"
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
+        />
+      </View>
 
-            {showCamera && (
-                <CameraComponent
-                onPictureTaken={(p) => {
-                    setPhoto(p);
-                    setShowCamera(false);
-                }}
-                onClose={() => setShowCamera(false)}
-                />
-            )}
+      <View style={styles.formBlock}>
+        <Text style={styles.label}>Contact Phone Number</Text>
+        <TextInput
+          placeholder="Enter phone number"
+          placeholderTextColor="#999"
+          style={styles.input}
+          keyboardType="number-pad"
+          value={formatPhone(phoneDigits)}
+          onChangeText={handlePhoneChange}
+        />
+      </View>
 
-            {photo && <PhotoPreview uri={photo.uri} />}
+      {!showCamera && (
+        <TouchableOpacity
+          style={styles.iconLayout}
+          onPress={() => setShowCamera(true)}
+        >
+          <Text style={styles.cameraIcon}>📷</Text>
+          <Text style={styles.imageButtons}>Add Photo</Text>
+        </TouchableOpacity>
+      )}
 
-            {/* BUTTONS */}
-            <View style={styles.buttonsRow}>
+      <TouchableOpacity style={styles.iconLayout} onPress={pickImage}>
+        <Text style={styles.photoLibrary}>🖼️</Text>
+        <Text style={styles.imageButtons}>Choose from Library</Text>
+      </TouchableOpacity>
+
+      {showCamera && (
+        <CameraComponent
+          onPictureTaken={(p) => {
+            setPhoto(p);
+            setShowCamera(false);
+          }}
+          onClose={() => setShowCamera(false)}
+        />
+      )}
+
+      {photo && <PhotoPreview uri={photo.uri} />}
+
+      <View style={styles.buttonsRow}>
                 <TouchableOpacity
-                style={[styles.button, styles.buttonLight]}
-                onPress={() => router.back()}
+                    style={[styles.button, styles.buttonLight]}
+                    onPress={() => router.back()}
                 >
-                <Text style={styles.buttonTextDark}>Cancel</Text>
+                    <Text style={styles.buttonTextDark}>Cancel</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                style={[styles.button, styles.buttonGrey]}
-                onPress={ handleSave }
+                    style={[styles.button, styles.buttonGrey]}
+                    onPress={handleSave}
                 >
-                <Text style={styles.buttonTextDark}>Create</Text>
+                    <Text style={styles.buttonTextDark}>Create</Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
-    );
+    </ScrollView>
+  );
 }
