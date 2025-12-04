@@ -1,11 +1,12 @@
 import { EditContactComp } from "@/src/components/edit-contact/edit-contact";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
-export function EditContact() {
+export function EditContactView() {
 
-    const router = useRouter();
+    const { fileName } = useLocalSearchParams<{ fileName: string }>();
+
 
     return (
-        <EditContactComp/>
+        <EditContactComp fileName={fileName ? String(fileName) : null}/>
     );
 }

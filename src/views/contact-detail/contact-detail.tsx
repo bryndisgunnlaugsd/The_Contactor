@@ -66,7 +66,7 @@ export function ContactDetailView() {
 
       {/* Body */}
       <ContactDetail contact={contact}
-      onEdit={() => router.push("/edit-contact?fileName=${fileName}")} />
+      onEdit={() => router.push(`/edit-contact?fileName=${fileName}`)} />
     </View>
   );
 }

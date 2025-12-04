@@ -124,5 +124,29 @@ export default StyleSheet.create({
     marginRight:15,
   },
 
+  avatarImage: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    marginBottom: 20,
+  },
+  avatarFallback: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    backgroundColor: "#f7d9dd",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  avatarText: {
+      fontSize: 52,
+      fontWeight: "700",
+  },
+
+  deleteButton: {
+    color: "red",
+  }
+
 
 });

@@ -27,6 +27,6 @@ export default StyleSheet.create({
         shadowRadius: 8,
         elevation: 8,
     }
-
+    
 }
 )
