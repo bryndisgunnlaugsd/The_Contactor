@@ -21,7 +21,16 @@ export default StyleSheet.create({
     height: 56,
     borderRadius: 28,
     backgroundColor: "#d3d3d3",
+    alignItems: "center",
+    justifyContent: "center",   // center initial
   },
+
+  avatarInitial: {
+    fontSize: 22,
+    fontWeight: "600",
+    color: "#000",
+  },
+
   textContainer: {
     marginLeft: 16,
     flex: 1,
