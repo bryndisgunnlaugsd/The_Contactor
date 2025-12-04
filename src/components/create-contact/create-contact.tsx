@@ -56,7 +56,6 @@ export function CreateContactComp() {
 
     const newContact: ContactData = {
       name: trimmedName,
-      // store the formatted version (or use phoneDigits if you prefer raw)
       phoneNumber: formatPhone(phoneDigits),
       photo: photo?.uri,
     };
