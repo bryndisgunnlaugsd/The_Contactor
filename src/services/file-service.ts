@@ -162,3 +162,11 @@ export const updateContact = async (
     return newFileName;
   }, errorHandler);
 };
+
+// --- Delete contact ---
+
+export const deleteContact = async (fileName: string) =>
+  onException(async () => {
+    const file = new File(contactDirectory, fileName);
+    if (file.exists) file.delete();
+  });
