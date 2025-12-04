@@ -15,6 +15,7 @@ export interface ContactItem {
   name: string;
   type: "contact";
   file: string; // the actual filename: "<name>-<uuid>.json"
+  photo?: string;
 }
 
 // Error handler
@@ -130,6 +131,7 @@ export const getAllContacts = async (
           name: data.name,
           type: "contact",
           file: file.name,
+          photo: data.photo
         };
       })
     );
