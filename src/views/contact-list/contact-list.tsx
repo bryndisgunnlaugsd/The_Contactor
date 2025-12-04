@@ -8,14 +8,14 @@ import type { ContactItem } from "@/src/services/file-service";
 import { getAllContacts } from "@/src/services/file-service";
 
 // DUMMY DATA FOR TESTING
-const DUMMY_CONTACTS_UNSORTED = [
+const dummyContactsUnsorted = [
   { name: "Arnar Máni Steinsen", type: "contact", file: "arnar.json" },
   { name: "Arngrímur Esra Árnason", type: "contact", file: "arngrimur.json" },
   { name: "Bryndís Gunnlaugsdóttir", type: "contact", file: "bryndis.json" },
   { name: "Dagur Smári Sigvaldason", type: "contact", file: "dagur.json" },
 ] satisfies ContactItem[];
 
-export const DUMMY_CONTACTS = [...DUMMY_CONTACTS_UNSORTED].sort((a, b) =>
+export const dummyContacts = [...dummyContactsUnsorted].sort((a, b) =>
   a.name.localeCompare(b.name)
 );
 

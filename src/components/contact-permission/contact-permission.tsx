@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, Alert } from 'react-native';
-import * as Contacts from 'expo-contacts';
-import { Ionicons } from '@expo/vector-icons';
-import { saveContact, ContactData, contactExists } from '../../services/file-service';
-import styles from './styles';
+import { Ionicons } from "@expo/vector-icons";
+import * as Contacts from "expo-contacts";
+import React, { useState } from "react";
+import { Alert, Modal, Text, TouchableOpacity, View } from "react-native";
+import { ContactData, contactExists, saveContact } from "../../services/file-service";
+import styles from "./styles";
 
 interface ContactPermissionProps {
   visible: boolean;
@@ -17,19 +17,19 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
   const requestContactsPermission = async () => {
     try {
       const { status } = await Contacts.requestPermissionsAsync();
-      
+     
       if (status === "granted") {
         await importContacts();
       } else {
         Alert.alert(
           "Permission Denied",
           "Unable to access contacts. Please enable contacts permission in your device settings.",
-          [{ text: 'OK' }]
+          [{ text: "OK" }]
         );
       }
     } catch (error) {
       console.error("Error requesting contacts permission:", error);
-      Alert.alert("Error', 'Failed to request contacts permission");
+      Alert.alert("Error", "Failed to request contacts permission");
     }
   };
 
@@ -48,7 +48,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
       if (data.length > 0) {
         let importedCount = 0;
         let skippedCount = 0;
-        
+       
         // Import each contact
         for (const contact of data) {
           const name = contact.name || "Unknown";
@@ -58,7 +58,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
           if (phoneNumber) {
             // Check if contact already exists by phone number
             const exists = await contactExists(phoneNumber);
-            
+           
             if (!exists) {
               const contactData: ContactData = {
                 name,
@@ -83,12 +83,12 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
         if (importedCount > 0) {
           Alert.alert(
             "Import Complete",
-            `Successfully imported ${importedCount} new contact${importedCount !== 1 ? 's' : ''}${
-              skippedCount > 0 ? `\n${skippedCount} duplicate${skippedCount !== 1 ? 's' : ''} skipped` : ''
+            `Successfully imported ${importedCount} new contact${importedCount !== 1 ? "s" : ""}${
+              skippedCount > 0 ? `\n${skippedCount} duplicate${skippedCount !== 1 ? "s" : ""} skipped` : ""
             }`,
             [
               {
-                text: 'OK',
+                text: "OK",
                 onPress: () => {
                   onImportComplete();
                   onClose();
@@ -98,11 +98,11 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
           );
         } else if (skippedCount > 0) {
           Alert.alert(
-            'No New Contacts',
-            'All contacts have already been imported.',
+            "No New Contacts",
+            "All contacts have already been imported.",
             [
               {
-                text: 'OK',
+                text: "OK",
                 onPress: () => {
                   onClose();
                 },
@@ -110,14 +110,14 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
             ]
           );
         } else {
-          Alert.alert('No Contacts', 'No contacts with phone numbers found on your device');
+          Alert.alert("No Contacts", "No contacts with phone numbers found on your device");
         }
       } else {
-        Alert.alert('No Contacts', 'No contacts found on your device');
+        Alert.alert("No Contacts", "No contacts found on your device");
       }
     } catch (error) {
-      console.error('Error importing contacts:', error);
-      Alert.alert('Error', 'Failed to import contacts');
+      console.error("Error importing contacts:", error);
+      Alert.alert("Error", "Failed to import contacts");
     } finally {
       setIsImporting(false);
     }
@@ -156,7 +156,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
             disabled={isImporting}
           >
             <Text style={styles.grantButtonText}>
-              {isImporting ? 'Importing...' : 'Grant access'}
+              {isImporting ? "Importing..." : "Grant access"}
             </Text>
           </TouchableOpacity>
         </View>

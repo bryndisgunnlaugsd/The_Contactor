@@ -1,11 +1,10 @@
 import { CameraComponent } from "@/src/components/Image/camera";
 import { deleteContact, loadContact, updateContact, type ContactData } from "@/src/services/file-service";
+import { green1, green2, green3, green4, green5 } from "@/src/styles/colors";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Alert, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
-import { green1, green2, green3, green4, green5 } from "@/src/styles/colors";
 import styles from "../create-contact/styles";
 import { useImagePicker } from "../Image/imagepicker";
 
@@ -14,7 +13,7 @@ interface Props {
 }
 
 // Green scale for avatars
-const AVATAR_COLORS: { [key: string]: string } = {
+const avatarColors: { [key: string]: string } = {
   "A": green5, "F": green5, "K": green5, "P": green5, "U": green5, "Z": green5,
   "B": green4, "G": green4, "L": green4, "Q": green4, "V": green4,
   "C": green3, "H": green3, "M": green3, "R": green3, "W": green3,
@@ -22,7 +21,7 @@ const AVATAR_COLORS: { [key: string]: string } = {
   "E": green1, "J": green1, "O": green1, "T": green1, "Y": green1,
 };
 
-function formatPhone(digits: string): string {
+function FormatPhone(digits: string): string {
   const onlyDigits = digits.replace(/\D/g, "");
 
   if (onlyDigits.length <= 3) {
@@ -49,10 +48,11 @@ export function EditContactComp({ fileName }: Props) {
     const [photo, setPhoto] = useState<{ uri: string } | null>(null);
 
     const [loading, setLoading] = useState(true);
-    
+
     useEffect(() => {
         if (!fileName) {
         Alert.alert("Error", "No contact to edit.");
+
         return;
         }
 
@@ -85,6 +85,7 @@ export function EditContactComp({ fileName }: Props) {
      const handleUpdate = async () => {
         if (!fileName) {
         Alert.alert("Error", "Cannot save. Missing file.");
+
         return;
         }
 
@@ -92,17 +93,19 @@ export function EditContactComp({ fileName }: Props) {
 
         if (!trimmedName) {
         Alert.alert("Missing name", "Please enter a contact name.");
+
         return;
         }
 
         if (!phoneDigits) {
         Alert.alert("Missing phone number", "Please enter a phone number.");
+        
         return;
         }
 
         const updatedContact: ContactData = {
         name: trimmedName,
-        phoneNumber: formatPhone(phoneDigits),
+        phoneNumber: FormatPhone(phoneDigits),
         photo: photo?.uri,
         };
 
@@ -138,7 +141,7 @@ export function EditContactComp({ fileName }: Props) {
     };
 
     const initial = name.charAt(0).toUpperCase();
-    const avatarColor = AVATAR_COLORS[initial] || green4;
+    const avatarColor = avatarColors[initial] || green4;
 
     return(
         <ScrollView style={styles.container}>
@@ -181,7 +184,7 @@ export function EditContactComp({ fileName }: Props) {
             placeholderTextColor="#999"
             style={styles.input}
             keyboardType="number-pad"
-            value={formatPhone(phoneDigits)}
+            value={FormatPhone(phoneDigits)}
             onChangeText={handlePhoneChange}
             />
         </View>

@@ -1,7 +1,6 @@
-import React from "react";
-import { View, TextInput, FlatList, ListRenderItem, Text } from "react-native";
 import type { ContactItem } from "@/src/services/file-service";
-import { ContactListItem } from "@/src/components/contact-list-item/contact-list-item";
+import React from "react";
+import { FlatList, ListRenderItem, Text, TextInput, View } from "react-native";
 import styles from "./styles";
 
 interface Props {
@@ -33,7 +32,7 @@ export const ContactList: React.FC<Props> = ({
         {showInitial && (
           <Text style={styles.sectionHeader}>{currentInitial}</Text>
         )}
-        <ContactListItem
+        <contactListItem
           contact={item}
           onPress={() => onSelectContact(item)}
         />

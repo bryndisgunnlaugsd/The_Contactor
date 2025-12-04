@@ -21,7 +21,7 @@ export default function RootLayout() {
             style={{width: 184, height: 40}}
           />
         ),
-      
+
     }}>
     <Stack.Screen
       name="index"

@@ -9,7 +9,7 @@ import { PhotoPreview } from "../Image/photopreview";
 import styles from "./styles";
 
 
-function formatPhone(digits: string): string {
+function FormatPhone(digits: string): string {
   const onlyDigits = digits.replace(/\D/g, "");
 
   if (onlyDigits.length <= 3) {
@@ -44,17 +44,19 @@ export function CreateContactComp() {
 
     if (!trimmedName) {
       Alert.alert("Missing name", "Please enter a contact name.");
+
       return;
     }
 
     if (!phoneDigits) {
       Alert.alert("Missing phone number", "Please enter a phone number.");
+      
       return;
     }
 
     const newContact: ContactData = {
       name: trimmedName,
-      phoneNumber: formatPhone(phoneDigits),
+      phoneNumber: FormatPhone(phoneDigits),
       photo: photo?.uri,
     };
 
@@ -90,7 +92,7 @@ export function CreateContactComp() {
           placeholderTextColor="#666"
           style={styles.input}
           keyboardType="number-pad"
-          value={formatPhone(phoneDigits)}
+          value={FormatPhone(phoneDigits)}
           onChangeText={handlePhoneChange}
         />
       </View>

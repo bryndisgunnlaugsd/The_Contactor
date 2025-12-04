@@ -35,7 +35,7 @@ export function useImagePicker(onPicked: (photo: PhotoResult | null) => void) {
     // If still not granted → stop
     if (!perm.granted) {
       alert("Permission required to access photos.");
-      
+
       return false;
     }
 

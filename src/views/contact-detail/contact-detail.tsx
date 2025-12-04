@@ -1,11 +1,10 @@
 // app/contact-detail/index.tsx (or whatever the route file is)
 
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View, Linking } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { ContactDetail } from "@/src/components/contact-detail/contact-detail";
 import { loadContact, type ContactData } from "@/src/services/file-service";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Linking, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import styles from "./styles";
 
@@ -21,6 +20,7 @@ export function ContactDetailView() {
     if (!fileName) {
       setError("No contact selected.");
       setLoading(false);
+
       return;
     }
 
@@ -63,7 +63,7 @@ export function ContactDetailView() {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
-      <ContactDetail
+      <contactDetail
         contact={contact}
         onEdit={() => router.push(`/edit-contact?fileName=${fileName}`)}
         onCall={() => {

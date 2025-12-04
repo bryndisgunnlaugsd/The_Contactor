@@ -2,10 +2,10 @@
 
 import type { ContactData } from "@/src/services/file-service";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { Dimensions, Image, ScrollView, Text, TouchableOpacity, View, } from "react-native";
 import styles from "./styles";
-import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
   contact: ContactData;
@@ -14,9 +14,9 @@ interface Props {
 }
 
 const { height } = Dimensions.get("window");
-const HERO_HEIGHT = height * 0.6; 
+const heroHeight = height * 0.6;
 
-export const ContactDetail: React.FC<Props> = ({
+export const contactDetail: React.FC<Props> = ({
   contact,
   onEdit,
   onCall,
@@ -34,7 +34,7 @@ const photoUri =
   return (
     <ScrollView style={styles.scroll} bounces>
       {/* HERO IMAGE AREA */}
-<View style={[styles.heroContainer, { height: HERO_HEIGHT }]}>
+<View style={[styles.heroContainer, { height: heroHeight }]}>
   {photoUri ? (
     <Image source={{ uri: photoUri }} style={styles.heroImage} />
   ) : (
@@ -60,7 +60,7 @@ const photoUri =
 
 
 
- 
+
 
       {/* BODY UNDER PHOTO */}
       <View style={styles.body}>

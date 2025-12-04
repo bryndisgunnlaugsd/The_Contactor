@@ -1,8 +1,8 @@
-import { Animated, Text, TouchableOpacity, View } from "react-native";
-import { useEffect, useRef, useState } from "react";
-import styles from "./styles";
 import { useRouter } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { ContactPermission } from "../../components/contact-permission/contact-permission";
+import styles from "./styles";
 
 export function Main() {
     const router = useRouter();
@@ -52,7 +52,7 @@ export function Main() {
     };
 
     const handleImportComplete = () => {
-        console.log('Contacts imported successfully');
+        console.log("Contacts imported successfully");
     };
 
     const handleClosePermissionModal = () => {
@@ -71,7 +71,7 @@ export function Main() {
                 ]}
                 source={require("../../../assets/images/contactor.png")}
             />
-        
+
             <Animated.View
                 style={{
                     opacity: buttonOpacity,

@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
 import type { ContactItem } from "@/src/services/file-service";
-import styles from "./styles";
 import { green1, green2, green3, green4, green5 } from "@/src/styles/colors";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import styles from "./styles";
 
 interface Props {
   contact: ContactItem;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 // Green scale for avatars (fallback)
-const AVATAR_COLORS: { [key: string]: string } = {
+const avatarColors: { [key: string]: string } = {
   A: green5, F: green5, K: green5, P: green5, U: green5, Z: green5,
   B: green4, G: green4, L: green4, Q: green4, V: green4,
   C: green3, H: green3, M: green3, R: green3, W: green3,
@@ -18,7 +18,7 @@ const AVATAR_COLORS: { [key: string]: string } = {
   E: green1, J: green1, O: green1, T: green1, Y: green1,
 };
 
-export const ContactListItem: React.FC<Props> = ({ contact, onPress }) => {
+export const contactListItem: React.FC<Props> = ({ contact, onPress }) => {
   const initial = contact.name.charAt(0).toUpperCase();
 
   const rawPhoto = contact.photo;
@@ -30,7 +30,7 @@ export const ContactListItem: React.FC<Props> = ({ contact, onPress }) => {
       ? `file://${rawPhoto}`
       : rawPhoto || undefined;
 
-  const avatarColor = AVATAR_COLORS[initial] || "#1EA165";
+  const avatarColor = avatarColors[initial] || "#1EA165";
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>

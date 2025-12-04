@@ -63,11 +63,11 @@ export const contactExists = async (
     for (const file of contactFiles) {
       const content = await file.text();
       const data = JSON.parse(content) as ContactData;
-      
+     
       // Normalize phone numbers for comparison (remove spaces, dashes, etc)
-      const normalizedExisting = data.phoneNumber.replace(/[\s\-\(\)]/g, '');
-      const normalizedNew = phoneNumber.replace(/[\s\-\(\)]/g, '');
-      
+      const normalizedExisting = data.phoneNumber.replace(/[\s\-\(\)]/g, "");
+      const normalizedNew = phoneNumber.replace(/[\s\-\(\)]/g, "");
+     
       if (normalizedExisting === normalizedNew) {
         return true;
       }
@@ -105,6 +105,7 @@ export const loadContact = async (
   return onException(async () => {
     const file = new File(contactDirectory, fileName);
     const content = await file.text();
+    
     return JSON.parse(content) as ContactData;
   }, errorHandler);
 };
@@ -127,6 +128,7 @@ export const getAllContacts = async (
     const contacts = await Promise.all(
       contactFiles.map(async (file): Promise<ContactItem> => {
         const data = await loadContact(file.name, errorHandler);
+
         return {
           name: data.name,
           type: "contact",
@@ -144,7 +146,7 @@ export const getAllContacts = async (
 };
 
 // ---- UPDATE CONTACT (EDIT SCREEN) ----
-// The assignment says the JSON file should be recreated after modifying the contact. :contentReference[oaicite:1]{index=1}
+// The assignment says the JSON file should be recreated after modifying the contact.
 export const updateContact = async (
   oldFileName: string,
   updated: ContactData,
@@ -158,6 +160,7 @@ export const updateContact = async (
     if (oldFile.exists) {
       oldFile.delete();
     }
+
 
     // create a new file with possibly new name + new uuid
     const newFileName = await saveContact(updated, errorHandler);
