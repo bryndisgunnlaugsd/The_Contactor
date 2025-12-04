@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f3f3f3", // light grey background like mockup
+        backgroundColor: "white",
         paddingHorizontal: 24,
-        paddingTop: 60,
+        paddingTop: 30,
     },
     headerRow: {
         flexDirection: "row",
@@ -19,7 +19,6 @@ export default StyleSheet.create({
     },
 
     addButtonContainer: {
-        //Tekið úr Toodler
         width: 35,
         height: 35,
         borderRadius: 20,
@@ -37,15 +36,11 @@ export default StyleSheet.create({
         elevation: 3,
     },
     addButton: {
-        //Tekið úr Toodler
         fontSize: 28,
-        color: "#000",
-        fontWeight: "300",
+        color: "black",
+        fontWeight: "400",
         textAlign: "center",
         lineHeight: 28,
     },
-
-    
-
 }
 )
