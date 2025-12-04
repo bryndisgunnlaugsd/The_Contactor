@@ -77,7 +77,7 @@ export function CreateContactComp() {
         <Text style={styles.label}>Contact Name</Text>
         <TextInput
           placeholder="Enter contact name"
-          placeholderTextColor="#999"
+          placeholderTextColor="#666"
           style={styles.input}
           value={name}
           onChangeText={setName}
@@ -88,7 +88,7 @@ export function CreateContactComp() {
         <Text style={styles.label}>Contact Phone Number</Text>
         <TextInput
           placeholder="Enter phone number"
-          placeholderTextColor="#999"
+          placeholderTextColor="#666"
           style={styles.input}
           keyboardType="number-pad"
           value={formatPhone(phoneDigits)}

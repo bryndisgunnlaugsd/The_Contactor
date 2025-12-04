@@ -1,23 +1,29 @@
 import { StyleSheet } from "react-native";
+import { white, black, lightGray, shadow, green5} from "@/src/styles/colors";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: white,
     paddingHorizontal: 24,
-    paddingTop: 32,
+    paddingTop: 40,
   },
 
   title: {
     fontSize: 28,
-    fontWeight: "800",
+    fontWeight: "700",
     textAlign: "center",
     marginBottom: 32,
-    color: "#000000",
+    color: black,
   },
 
   formBlock: {
     marginBottom: 24,
+    shadowColor: shadow,
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+    elevation: 3,
   },
 
   label: {
@@ -35,7 +41,7 @@ export default StyleSheet.create({
     height: 52,
     borderRadius: 18,
     paddingHorizontal: 16,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: white,
     borderWidth: 1,
     borderColor: "#E5E7EB",
     fontSize: 16,
@@ -52,7 +58,7 @@ export default StyleSheet.create({
 
   button: {
     flex: 1,
-    height: 56,
+    height: 50,
     borderRadius: 18,
     justifyContent: "center",
     alignItems: "center",
@@ -64,11 +70,21 @@ export default StyleSheet.create({
   },
 
   buttonLight: {
-    backgroundColor: "#EEF3FF",
+    backgroundColor: lightGray,
+    shadowColor: shadow,
+    shadowOpacity: 0.14,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+    elevation: 3,
   },
 
   buttonGrey: {
-    backgroundColor: "#E5E5EA",
+    backgroundColor: green5,
+    shadowColor: shadow,
+    shadowOpacity: 0.14,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+    elevation: 3,
   },
 
   buttonTextDark: {
@@ -103,25 +119,31 @@ export default StyleSheet.create({
   iconLayout: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    justifyContent: "center",
+    marginBottom: 12,
     height: 52,
     borderRadius: 18,
     paddingHorizontal: 16,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: white,
     borderWidth: 1,
     borderColor: "#E5E7EB",
     fontSize: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 2,
     
   },
   cameraIcon: {
     fontSize: 24,
     marginVertical: 10,
-    marginRight:15,
+    marginRight: 12,
   },
   photoLibrary: {
     fontSize: 24,
     marginVertical: 10,
-    marginRight:15,
+    marginRight:12,
   },
 
   avatarImage: {
@@ -159,6 +181,4 @@ export default StyleSheet.create({
     fontSize:14,
     fontWeight: "600",
   }
-
-
 });
