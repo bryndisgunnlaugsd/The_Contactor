@@ -41,6 +41,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
           Contacts.Fields.Name,
           Contacts.Fields.PhoneNumbers,
           Contacts.Fields.Image,
+          Contacts.Fields.ImageAvailable,
         ],
       });
 
@@ -66,6 +67,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
               };
 
               try {
+                console.log("Saving contact", contactData);
                 await saveContact(contactData);
                 importedCount++;
               } catch (error) {

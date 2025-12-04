@@ -1,8 +1,12 @@
+// app/contact-detail/index.tsx (or whatever the route file is)
+
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View, Linking } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { ContactDetail } from "@/src/components/contact-detail/contact-detail";
 import { loadContact, type ContactData } from "@/src/services/file-service";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+
 import styles from "./styles";
 
 export function ContactDetailView() {
@@ -58,15 +62,16 @@ export function ContactDetailView() {
   }
 
   return (
-    <View style={styles.container}>
-      {/* Header with back + title + (future) edit button */}
-      <View style={styles.headerRow}>
-        <Text style={styles.title}>Contact Details</Text>
-      </View>
-
-      {/* Body */}
-      <ContactDetail contact={contact}
-      onEdit={() => router.push(`/edit-contact?fileName=${fileName}`)} />
-    </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ContactDetail
+        contact={contact}
+        onEdit={() => router.push(`/edit-contact?fileName=${fileName}`)}
+        onCall={() => {
+          if (contact.phoneNumber) {
+            Linking.openURL(`tel:${contact.phoneNumber}`);
+          }
+        }}
+      />
+    </SafeAreaView>
   );
 }

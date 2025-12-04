@@ -1,30 +1,15 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: "#f3f3f3",
-    paddingHorizontal: 24,
-    paddingTop: 60,
+    backgroundColor: "#F2F2F7",
   },
   center: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f3f3f3",
-  },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 24,
-    justifyContent: "space-between",
-  },
-  backText: {
-    fontSize: 22,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
+    backgroundColor: "#F2F2F7",
   },
   backButton: {
     marginTop: 16,

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { white, mainGreen, shadow} from "@/src/styles/colors";
+import { white, shadow } from "@/src/styles/colors";
 
 export default StyleSheet.create({
   container: {
@@ -16,15 +16,31 @@ export default StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
   },
-  avatar: {
+
+  // outer circle – always 56x56, clips image
+  avatarWrapper: {
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: mainGreen, // default
+    overflow: "hidden",
     alignItems: "center",
-    justifyContent: "center",   // center initial
+    justifyContent: "center",
   },
 
+  // actual photo
+  avatarImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+
+  // fallback background + initial
+  avatarFallback: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   avatarInitial: {
     fontSize: 22,
     fontWeight: "600",
