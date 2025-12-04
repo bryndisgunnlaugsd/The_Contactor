@@ -116,8 +116,8 @@ export function EditContactComp({ fileName }: Props) {
     return(
         <ScrollView style={styles.container}>
 
-        <TouchableOpacity onPress= { handleDelete }>
-            <Text style= {styles.deleteButton}> Delete Contact</Text>
+        <TouchableOpacity style= {styles.deleteButton} onPress= { handleDelete }>
+            <Text style= {styles.deleteButtonText}> Delete</Text>
         </TouchableOpacity>
 
 
