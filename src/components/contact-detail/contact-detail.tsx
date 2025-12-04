@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
 import type { ContactData } from "@/src/services/file-service";
 import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 interface Props {
