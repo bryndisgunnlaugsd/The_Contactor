@@ -5,6 +5,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Linking, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ContactDetail } from "@/src/components/contact-detail/contact-detail";
 
 import styles from "./styles";
 
@@ -63,7 +64,7 @@ export function ContactDetailView() {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
-      <contactDetail
+      <ContactDetail
         contact={contact}
         onEdit={() => router.push(`/edit-contact?fileName=${fileName}`)}
         onCall={() => {
