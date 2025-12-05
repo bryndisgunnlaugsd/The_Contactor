@@ -135,6 +135,20 @@ export default StyleSheet.create({
     fontSize: 24,
     marginVertical: 10,
     marginRight:15,
-  }
+  },
+    access: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#111827",      // near-black, iOS-style
+    textAlign: "center",
+    marginBottom: 12,
+  },
+
+  permission: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#1D9F61",      // your brand green
+    textAlign: "center",
+  },
 
 });
