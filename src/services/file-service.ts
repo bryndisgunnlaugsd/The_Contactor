@@ -63,11 +63,11 @@ export const contactExists = async (
     for (const file of contactFiles) {
       const content = await file.text();
       const data = JSON.parse(content) as ContactData;
-     
+
       // Normalize phone numbers for comparison (remove spaces, dashes, etc)
       const normalizedExisting = data.phoneNumber.replace(/[\s\-\(\)]/g, "");
       const normalizedNew = phoneNumber.replace(/[\s\-\(\)]/g, "");
-     
+
       if (normalizedExisting === normalizedNew) {
         return true;
       }
@@ -105,7 +105,7 @@ export const loadContact = async (
   return onException(async () => {
     const file = new File(contactDirectory, fileName);
     const content = await file.text();
-    
+
     return JSON.parse(content) as ContactData;
   }, errorHandler);
 };
@@ -163,6 +163,7 @@ export const updateContact = async (
 
     // create a new file with possibly new name + new uuid
     const newFileName = await saveContact(updated, errorHandler);
+
     return newFileName;
   }, errorHandler);
 };

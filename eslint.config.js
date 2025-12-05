@@ -21,6 +21,14 @@ module.exports = defineConfig([
         selector: 'variable',
         format: ['camelCase'],
       },
+      {
+        selector: 'function',
+        format: ['camelCase'],
+        filter: {
+          regex: '^use[A-Z]',
+          match: true,
+        },
+      }
     ],
 
     // --- Spacing ---
@@ -37,7 +45,7 @@ module.exports = defineConfig([
     'eqeqeq': ['error', 'always'],
     'max-len': ['error', { code: 115 }],
   },
-},  
+},
   {
     ignores: ['dist/*'],
   },
