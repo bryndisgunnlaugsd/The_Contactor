@@ -3,6 +3,7 @@ import { green1, green2, green3, green4, green5 } from "@/src/styles/colors";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
+import { normalizeInitial } from "@/src/helpers/letters";
 
 interface Props {
   contact: ContactItem;
@@ -18,19 +19,19 @@ const avatarColors: { [key: string]: string } = {
   E: green1, J: green1, O: green1, T: green1, Y: green1,
 };
 
-export const contactListItem: React.FC<Props> = ({ contact, onPress }) => {
+export const ContactListItem: React.FC<Props> = ({ contact, onPress }) => {
   const initial = contact.name.charAt(0).toUpperCase();
 
   const rawPhoto = contact.photo;
   const hasPhoto = typeof rawPhoto === "string" && rawPhoto.length > 0;
 
-  // ✅ normalize to a proper file:// URI
+  // normalize to a proper file:// URI
   const photoUri =
     hasPhoto && !rawPhoto.startsWith("file://")
       ? `file://${rawPhoto}`
       : rawPhoto || undefined;
 
-  const avatarColor = avatarColors[initial] || "#1EA165";
+  const avatarColor = avatarColors[normalizeInitial(initial)] || "#1EA165";
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>

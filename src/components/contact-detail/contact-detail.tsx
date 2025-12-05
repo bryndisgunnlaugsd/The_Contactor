@@ -16,7 +16,7 @@ interface Props {
 const { height } = Dimensions.get("window");
 const heroHeight = height * 0.6;
 
-export const contactDetail: React.FC<Props> = ({
+export const ContactDetail: React.FC<Props> = ({
   contact,
   onEdit,
   onCall,
@@ -34,33 +34,25 @@ const photoUri =
   return (
     <ScrollView style={styles.scroll} bounces>
       {/* HERO IMAGE AREA */}
-<View style={[styles.heroContainer, { height: heroHeight }]}>
-  {photoUri ? (
-    <Image source={{ uri: photoUri }} style={styles.heroImage} />
-  ) : (
-    <View style={styles.heroFallback}>
-      <Text style={styles.heroInitial}>{initial}</Text>
-    </View>
-  )}
-
-  <LinearGradient
-    colors={[
-      "rgba(0,0,0,0)",
-      "rgba(0,0,0,0.5)",
-      "rgba(0,0,0,0.95)",
-    ]}
-    locations={[0, 0.4, 1]}
-    style={styles.heroGradient}
-  />
-
-  <View style={styles.heroOverlay}>
-    <Text style={styles.heroName}>{contact.name}</Text>
-  </View>
-</View>
-
-
-
-
+      <View style={[styles.heroContainer, { height: heroHeight }]}>
+        
+        {/* Color gradient */}
+        <LinearGradient
+          colors={[
+            "rgba(19,150,83)",   // dark green
+            "rgba(55,185,106)",  // mid green
+            "rgba(166,235,96)",
+          ]}
+          locations={[0, 0.4, 1]}
+          style={styles.heroGradient}
+        />
+        {/* Photo on top if it exists */}
+        <Image source={{ uri: photoUri }} style={styles.heroImage} />
+        
+        <View style={styles.heroOverlay}>
+          <Text style={styles.heroName}>{contact.name}</Text>
+        </View>
+      </View>
 
       {/* BODY UNDER PHOTO */}
       <View style={styles.body}>

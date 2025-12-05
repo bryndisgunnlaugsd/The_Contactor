@@ -146,7 +146,6 @@ export const getAllContacts = async (
 };
 
 // ---- UPDATE CONTACT (EDIT SCREEN) ----
-// The assignment says the JSON file should be recreated after modifying the contact.
 export const updateContact = async (
   oldFileName: string,
   updated: ContactData,
