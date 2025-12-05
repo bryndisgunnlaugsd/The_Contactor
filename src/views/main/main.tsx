@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
+import * as Contacts from "expo-contacts";
 import { ContactPermission } from "../../components/contact-permission/contact-permission";
 import styles from "./styles";
 
@@ -27,11 +28,27 @@ export function Main() {
             }),
         ]).start();
 
-        // Show permission modal after animation completes
-        setTimeout(() => {
-            setShowPermissionModal(true);
+        // after animation, check contacts permission
+        const timer = setTimeout(async () => {
+            try {
+                const { status } = await Contacts.getPermissionsAsync();
+
+                if (status === "granted") {
+                    // already granted before → don't show modal
+                    setShowPermissionModal(false);
+                } else {
+                    // not granted yet → show permission modal
+                    setShowPermissionModal(true);
+                }
+            } catch (e) {
+                console.warn("Failed to check contacts permission", e);
+                // if something goes wrong, fail open and just hide modal
+                setShowPermissionModal(false);
+            }
         }, 1000);
-    }, []);
+
+        return () => clearTimeout(timer);
+    }, [logoScale, buttonOpacity]);
 
     const handlePress = () => {
         router.push("/contact-list");
