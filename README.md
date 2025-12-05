@@ -4,7 +4,7 @@ The Contactor is a contact management application built with React Native and Ex
 
 This application was developed and tested for iOS devices.
 
-**Note:** Extra Requirements are stated at the bottom
+**Note:** Extras that were implemented are stated at the bottom.
 
 ---
 
@@ -83,7 +83,15 @@ the first launch could take few minutes :)
 
 ## Features
 
-eftir að bæta inn hér
+**Contact Management:** Import from device *(with duplicate prevention)*, create manually, edit and delete contacts.
+
+**Color-coded avatars:** Each contact gets a unique green shade of its avatar based on it's first letter if there is no image connected to the contact.
+
+**Animations:** Logo animation on launch, button press feedback
+
+**CRUD operations:** Create, read, update, and delete for all contacts
+
+**Intuitive navigation:** Clean back buttons and header layot, search functionality
 
 ---
 
@@ -128,8 +136,10 @@ npm install
 
 # Extra Requirements for Contactor
 
-Beyond the core functionality requirements, the following additional features have been implemented
+Beyond the core functionality requirements, we managed to implement all the Extra requirements stated in the project description:
+
+1. Import contacts from OS
+2. Add image with camera or photo import
+3. A user can make a call to contact from the application
 
 ---
-
-## 1
