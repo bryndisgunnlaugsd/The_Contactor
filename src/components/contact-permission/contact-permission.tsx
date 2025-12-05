@@ -17,7 +17,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
   const requestContactsPermission = async () => {
     try {
       const { status } = await Contacts.requestPermissionsAsync();
-     
+
       if (status === "granted") {
         await importContacts();
       } else {
@@ -48,7 +48,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
       if (data.length > 0) {
         let importedCount = 0;
         let skippedCount = 0;
-       
+
         // Import each contact
         for (const contact of data) {
           const name = contact.name || "Unknown";
@@ -58,7 +58,7 @@ export function ContactPermission({ visible, onClose, onImportComplete }: Contac
           if (phoneNumber) {
             // Check if contact already exists by phone number
             const exists = await contactExists(phoneNumber);
-           
+
             if (!exists) {
               const contactData: ContactData = {
                 name,

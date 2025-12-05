@@ -99,7 +99,7 @@ export function EditContactComp({ fileName }: Props) {
 
         if (!phoneDigits) {
         Alert.alert("Missing phone number", "Please enter a phone number.");
-        
+
         return;
         }
 

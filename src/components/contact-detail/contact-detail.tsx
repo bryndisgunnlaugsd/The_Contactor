@@ -21,7 +21,6 @@ export const ContactDetail: React.FC<Props> = ({
   onEdit,
   onCall,
 }) => {
-const initial = contact.name.charAt(0).toUpperCase();
 
 const rawPhoto = contact.photo;
 const hasPhoto = typeof rawPhoto === "string" && rawPhoto.length > 0;
@@ -35,7 +34,7 @@ const photoUri =
     <ScrollView style={styles.scroll} bounces>
       {/* HERO IMAGE AREA */}
       <View style={[styles.heroContainer, { height: heroHeight }]}>
-        
+
         {/* Color gradient */}
         <LinearGradient
           colors={[
@@ -48,7 +47,7 @@ const photoUri =
         />
         {/* Photo on top if it exists */}
         <Image source={{ uri: photoUri }} style={styles.heroImage} />
-        
+
         <View style={styles.heroOverlay}>
           <Text style={styles.heroName}>{contact.name}</Text>
         </View>

@@ -50,7 +50,7 @@ export function CreateContactComp() {
 
     if (!phoneDigits) {
       Alert.alert("Missing phone number", "Please enter a phone number.");
-      
+
       return;
     }
 
