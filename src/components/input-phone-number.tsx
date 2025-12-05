@@ -1,0 +1,1 @@
+// Eftir að implementa virkni til þess að importa contacts frá OS
